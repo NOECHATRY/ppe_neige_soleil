@@ -71,18 +71,35 @@ function delloc($bdd, $num_client){
 
 
 function addloc($bdd, $nom, $prenom, $adresse, $mail, $tel_fix, $tel_portable){
-    $query = "INSERT INTO `Client`(`Nom`, `Prenom`, `Adresse`, `Mail`, `TelF`, `TelP`) 
-        VALUES (:nom, :prenom, :adresse, :mail, :telf, :telp)";
-    $stmt = $bdd->prepare($query);
-    return $stmt->execute([
-        ':nom' => $nom,
-        ':prenom' => $prenom,
-        ':adresse' => $adresse,
-        ':mail' => $mail,
-        ':telf' => $tel_fix,
-        ':telp' => $tel_portable
-    ]);
+    try {
+        // 1) Ajouter le client dans la table client
+        $query = "INSERT INTO `client`(`Nom`, `Prenom`, `Adresse`, `Mail`, `TelF`, `TelP`) 
+                  VALUES (:nom, :prenom, :adresse, :mail, :telf, :telp)";
+        $stmt = $bdd->prepare($query);
+        $stmt->execute([
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':adresse' => $adresse,
+            ':mail' => $mail,
+            ':telf' => $tel_fix,
+            ':telp' => $tel_portable
+        ]);
+
+        // 2) Récupérer l'ID auto-incrément du client
+        $numC = $bdd->lastInsertId();
+
+        // 3) Ajouter aussi ce client dans la table locataire
+        $queryLoc = "INSERT INTO `locataire`(`numC`) VALUES (:numC)";
+        $stmtLoc = $bdd->prepare($queryLoc);
+        $stmtLoc->execute([':numC' => $numC]);
+
+        return true;
+    } catch (PDOException $e) {
+        error_log("Erreur addloc : " . $e->getMessage());
+        return false;
+    }
 }
+
 
 
 function updateloc($bdd, $num_client, $nom, $prenom, $adresse, $mail, $tel_fix, $tel_portable){
