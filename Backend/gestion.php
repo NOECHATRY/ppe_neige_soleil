@@ -101,94 +101,107 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
     </form>
 
     <!-- === CONTRATS === -->
-    <?php if ($modification_mode && $contrat_a_modifier): ?>
-        <h2>Modifier le contrat #<?= $contrat_a_modifier['NumC'] ?></h2>
-        <form method="post">
-            <input type="hidden" name="action" value="update">
-            <input type="hidden" name="numC" value="<?= $contrat_a_modifier['NumC'] ?>">
-            <label>Date du contrat:</label>
-            <input type="date" name="dateC" required value="<?= $contrat_a_modifier['DateC'] ?>"><br>
-            <label>Appartement:</label>
-            <input type="text" value="Appartement <?= $contrat_a_modifier['numA'] ?>" disabled>
-            <input type="hidden" name="numA" value="<?= $contrat_a_modifier['numA'] ?>"><br>
-            <label>Locataire:</label>
-            <select name="numC_1" required>
-                <option value="">-- Sélectionnez un locataire --</option>
-                <?php foreach ($locataires as $locataire): ?>
-                    <option value="<?= $locataire['numC'] ?>" <?= ($locataire['numC'] == $contrat_a_modifier['numC_1']) ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($locataire['Prenom'] . " " . $locataire['Nom']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select><br>
-            <button type="submit">Modifier le contrat</button>
-            <a href="gestion.php">Annuler</a>
-        </form>
-    <?php else: ?>
-        <h2>Ajouter un nouveau contrat</h2>
-        <form method="post">
-            <input type="hidden" name="action" value="add">
-            <label>Date du contrat:</label>
-            <input type="date" name="dateC" required value="<?= date('Y-m-d') ?>"><br>
-            <label>Appartement:</label>
-            <select name="numA" required>
-                <option value="">-- Sélectionnez un appartement --</option>
-                <?php foreach ($tous_appartements as $app): ?>
-                    <?php if (!isAppartementUnderContrat($bdd, $app['numA'])): ?>
-                        <option value="<?= $app['numA'] ?>">Appartement <?= $app['numA'] ?> (Disponible)</option>
-                    <?php else: ?>
-                        <option value="<?= $app['numA'] ?>" disabled style="color:red;">Appartement <?= $app['numA'] ?> (Déjà sous contrat)</option>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </select><br>
-            <label>Locataire:</label>
-            <select name="numC_1" required>
-                <option value="">-- Sélectionnez un locataire --</option>
-                <?php foreach ($locataires as $locataire): ?>
-                    <option value="<?= $locataire['numC'] ?>"><?= htmlspecialchars($locataire['Prenom'] . " " . $locataire['Nom']) ?></option>
-                <?php endforeach; ?>
-            </select><br>
-            <button type="submit">Ajouter le contrat</button>
-        </form>
-    <?php endif; ?>
-
-    <h2>Liste des appartements et leur statut</h2>
-    <table>
-        <tr>
-            <th>Appartement</th>
-            <th>Statut</th>
-            <th>Contrat #</th>
-            <th>Locataire</th>
-            <th>Date du contrat</th>
-            <th>Actions</th>
-        </tr>
-        <?php foreach ($tous_appartements as $appartement):
-            $contrat_info = getContratByAppartement($bdd, $appartement['numA']); ?>
-            <tr>
-                <td><?= $appartement['numA'] ?></td>
-                <td><?= $contrat_info ? '<span style="color:red;">Sous contrat</span>' : '<span style="color:green;">Disponible</span>' ?></td>
-                <td><?= $contrat_info['NumC'] ?? '-' ?></td>
-                <td><?= $contrat_info ? htmlspecialchars($contrat_info['Prenom'] . ' ' . $contrat_info['Nom']) : '-' ?></td>
-                <td><?= $contrat_info['DateC'] ?? '-' ?></td>
-                <td><?= $contrat_info ? '<a href="?modifier='.$contrat_info['NumC'].'">Modifier</a>' : '-' ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-
-    <h2>Supprimer un contrat existant</h2>
+    <!-- === CONTRATS === -->
+<?php if ($modification_mode && $contrat_a_modifier): ?>
+    <h2>Modifier le contrat #<?= $contrat_a_modifier['NumC'] ?></h2>
     <form method="post">
-        <input type="hidden" name="action" value="delete">
-        <label>Choisissez un contrat :</label>
-        <select name="contrat" required>
-            <option value="">-- Sélectionnez --</option>
-            <?php foreach ($contrats as $contrat): ?>
-                <option value="<?= $contrat['NumC'] ?>">
-                    Contrat #<?= $contrat['NumC'] ?> - Appartement <?= $contrat['numA'] ?> -
-                    <?= htmlspecialchars($contrat['Prenom'] . " " . $contrat['Nom']) ?> (<?= $contrat['DateC'] ?>)
+        <input type="hidden" name="action" value="updateContrat">
+        <input type="hidden" name="numC" value="<?= $contrat_a_modifier['NumC'] ?>">
+
+        <label>Date du contrat:</label>
+        <input type="date" name="dateC" required value="<?= $contrat_a_modifier['DateC'] ?>"><br>
+
+        <label>Appartement:</label>
+        <select name="numA" required>
+            <?php foreach ($tous_appartements as $app): ?>
+                <option value="<?= $app['numA'] ?>"
+                    <?= ($app['numA'] == $contrat_a_modifier['numA']) ? 'selected' : '' ?>
+                    <?= (isAppartementUnderContrat($bdd, $app['numA']) && $app['numA'] != $contrat_a_modifier['numA']) ? 'disabled style="color:red;"' : '' ?>>
+                    Appartement <?= $app['numA'] ?>
+                    <?= (isAppartementUnderContrat($bdd, $app['numA']) && $app['numA'] != $contrat_a_modifier['numA']) ? '(Déjà sous contrat)' : '' ?>
                 </option>
             <?php endforeach; ?>
-        </select>
-        <button type="submit" onclick="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce contrat ?');">Supprimer</button>
+        </select><br>
+
+        <label>Locataire:</label>
+        <select name="numC_1" required>
+            <?php foreach ($locataires as $locataire): ?>
+                <option value="<?= $locataire['numC'] ?>" <?= ($locataire['numC'] == $contrat_a_modifier['numC_1']) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($locataire['Prenom'] . " " . $locataire['Nom']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select><br>
+
+        <button type="submit">Modifier le contrat</button>
+        <a href="gestion.php">Annuler</a>
     </form>
+<?php else: ?>
+    <h2>Ajouter un nouveau contrat</h2>
+    <form method="post">
+        <input type="hidden" name="action" value="addContrat">
+        <label>Date du contrat:</label>
+        <input type="date" name="dateC" required value="<?= date('Y-m-d') ?>"><br>
+        <label>Appartement:</label>
+        <select name="numA" required>
+            <option value="">-- Sélectionnez un appartement --</option>
+            <?php foreach ($tous_appartements as $app): ?>
+                <?php if (!isAppartementUnderContrat($bdd, $app['numA'])): ?>
+                    <option value="<?= $app['numA'] ?>">Appartement <?= $app['numA'] ?> (Disponible)</option>
+                <?php else: ?>
+                    <option value="<?= $app['numA'] ?>" disabled style="color:red;">Appartement <?= $app['numA'] ?> (Déjà sous contrat)</option>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </select><br>
+        <label>Locataire:</label>
+        <select name="numC_1" required>
+            <option value="">-- Sélectionnez un locataire --</option>
+            <?php foreach ($locataires as $locataire): ?>
+                <option value="<?= $locataire['numC'] ?>"><?= htmlspecialchars($locataire['Prenom'] . " " . $locataire['Nom']) ?></option>
+            <?php endforeach; ?>
+        </select><br>
+        <button type="submit">Ajouter le contrat</button>
+    </form>
+<?php endif; ?>
+
+<h2>Liste des appartements et leur statut</h2>
+<table>
+    <tr>
+        <th>Appartement</th>
+        <th>Statut</th>
+        <th>Contrat #</th>
+        <th>Locataire</th>
+        <th>Date du contrat</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach ($tous_appartements as $appartement):
+        $contrat_info = getContratByAppartement($bdd, $appartement['numA']); ?>
+        <tr>
+            <td><?= $appartement['numA'] ?></td>
+            <td><?= $contrat_info ? '<span style="color:red;">Sous contrat</span>' : '<span style="color:green;">Disponible</span>' ?></td>
+            <td><?= $contrat_info['NumC'] ?? '-' ?></td>
+            <td><?= $contrat_info ? htmlspecialchars($contrat_info['Prenom'] . ' ' . $contrat_info['Nom']) : '-' ?></td>
+            <td><?= $contrat_info['DateC'] ?? '-' ?></td>
+            <td><?= $contrat_info ? '<a href="?modifier='.$contrat_info['NumC'].'">Modifier</a>' : '-' ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<h2>Supprimer un contrat existant</h2>
+<form method="post">
+    <input type="hidden" name="action" value="delContrat">
+    <label>Choisissez un contrat :</label>
+    <select name="contrat" required>
+        <option value="">-- Sélectionnez --</option>
+        <?php foreach ($contrats as $contrat): ?>
+            <option value="<?= $contrat['NumC'] ?>">
+                Contrat #<?= $contrat['NumC'] ?> - Appartement <?= $contrat['numA'] ?> -
+                <?= htmlspecialchars($contrat['Prenom'] . " " . $contrat['Nom']) ?> (<?= $contrat['DateC'] ?>)
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <button type="submit" onclick="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce contrat ?');">Supprimer</button>
+</form>
+
 
     <!-- === APPARTEMENTS === -->
     <h2>Appartements</h2>

@@ -12,9 +12,11 @@ function addContrat($bdd, $dateC, $numA, $numC_1) {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result['count'] > 0) {
+            echo $numA, $result;
             echo "Appartement déjà sous contrat.";
-            return false; // Appartement déjà sous contrat
+            return $false;
         }
+        
 
         // Trouver le prochain numéro de contrat disponible
         $stmt = $bdd->query("SELECT MAX(NumC) as max_num FROM contratdelocation");

@@ -1,5 +1,6 @@
 <?php
-require_once "gestion_locataire.php";
+
+require_once "gestion_locataire.php";   
 require_once "gestion_appart.php";
 require_once "gestion_contratv2.php";
 
@@ -44,22 +45,28 @@ function handleFormActions($bdd) {
 
             // === CONTRATS ===
             case "addContrat":
-            case "add":
-                $ok = addContrat($bdd, $_POST['numC_1'], $_POST['numA'], $_POST['dateC']);
-                $message = $ok ? "Contrat ajouté" : "Erreur ajout contrat";
+                $ok = addContrat($bdd, $_POST['dateC'], $_POST['numA'], $_POST['numC_1']);
+                $message = $ok ? "Contrat ajouté" : "Erreur ajout contrat ou appartement déjà sous contrat";
                 break;
 
             case "updateContrat":
-            case "update":
-                $ok = updateContrat($bdd, $_POST['numC_1'], $_POST['numA'], $_POST['dateC']);
+                if (!isset($_POST['numC'])) {
+                    $message = "Numéro de contrat manquant";
+                    break;
+                }
+                $ok = updateContrat($bdd, $_POST['numC'], $_POST['dateC'], $_POST['numA'], $_POST['numC_1']);
                 $message = $ok ? "Contrat modifié" : "Erreur modification contrat";
                 break;
 
             case "delContrat":
-            case "delete":
-                $ok = delContrat($bdd, $_POST['contrat']);
+                $ok = deleteContrat($bdd, $_POST['contrat']);
                 $message = $ok ? "Contrat supprimé" : "Erreur suppression contrat";
                 break;
+
+            default:
+                $message = "Action inconnue";
+            break;  
+
         }
     }
 
