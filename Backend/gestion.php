@@ -247,7 +247,6 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
 
         <button type="submit">Ajouter Appartement</button>
     </form>
-    <form>
 <h4>Modifier un appartement</h4>
 <form method="post">
     <input type="hidden" name="action" value="updateAppart">
@@ -273,13 +272,13 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
         <?php endforeach; ?>
     </select>
 
-<label>Type :</label> 
-<select name="numT" required>
-    <option value="">-- Choisir --</option>
-    <?php foreach ($types as $type): ?> 
-        <option value="<?= $type['numT'] ?>"><?= htmlspecialchars($type['desciption']) ?></option> 
-    <?php endforeach; ?> 
-</select>
+    <label>Type :</label> 
+    <select name="numT" required>
+        <option value="">-- Choisir --</option>
+        <?php foreach ($types as $type): ?> 
+            <option value="<?= $type['numT'] ?>"><?= htmlspecialchars($type['desciption']) ?></option> 
+        <?php endforeach; ?> 
+    </select>
 
     <label>Propriétaire :</label>
     <select name="IBAN" required>
