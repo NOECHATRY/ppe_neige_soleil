@@ -24,8 +24,8 @@ h1 {
 h2 {
     margin: 40px 0 20px;
     color: #5C3F00;
-    border-left: 6px solid #FFEB3B;
-    padding-left: 12px;
+    border-left: 4px solid #5C3F00;
+    padding-left: 10px;
     font-size: 1.8rem;
 }
 
@@ -37,21 +37,19 @@ h4 {
 
 /* === MESSAGES === */
 .msg {
-    background: #FFF9C4;
-    border: 2px solid #FFEB3B;
-    color: #5C3F00;
+    background: #e0f2f1; /* vert pâle doux */
+    color: #004d40;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
 /* === FORMULAIRES === */
 form {
     background: white;
-    border: 2px solid #FFEB3B;
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.05);
@@ -70,7 +68,7 @@ form select {
     min-width: 180px;
     padding: 10px;
     margin: 6px 5px;
-    border: 2px solid #FFEB3B;
+    border: 1px solid #ccc;
     border-radius: 8px;
     transition: all 0.3s ease;
     background: #FFFDF7;
@@ -79,11 +77,23 @@ form select {
 
 form input:focus,
 form select:focus {
-    border-color: #FFD600;
+    border-color: #8D6E00;
     outline: none;
-    box-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
 }
-
+        nav {
+            background-color: #FFF9C4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5C3F00;
+        }
 /* === BOUTONS === */
 button {
     background: #FFEB3B;
@@ -110,7 +120,7 @@ a {
 }
 
 a:hover {
-    color: #FFD600;
+    color: #8D6E00;
 }
 
 /* === TABLES === */
@@ -125,7 +135,7 @@ table {
 }
 
 th {
-    background: #FFF9C4;
+    background: #f0f0f0;
     color: #5C3F00;
     text-align: left;
     padding: 14px;
@@ -139,7 +149,7 @@ td {
 }
 
 tr:nth-child(even) {
-    background: #FFFDF7;
+    background: #f9f9f9;
 }
 
 /* === STATUT APPARTEMENTS === */

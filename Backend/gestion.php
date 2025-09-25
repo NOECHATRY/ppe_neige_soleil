@@ -47,6 +47,12 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
     </style>
 </head>
+<nav>
+    <a href="/ppe_neige_soleil/ppe_neige_soleil/index.php">Neige et Soleil</a>
+    <button class="buttonUser" onclick="window.location.href='/ppe_neige_soleil/ppe_neige_soleil/Frontend/connexion.html'">
+        <div class="buttonUserIcon">👤</div>
+    </button>
+</nav>
 <body>
     <h1>Neige & Soleil</h1>
 
