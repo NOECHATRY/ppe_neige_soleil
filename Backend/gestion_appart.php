@@ -33,6 +33,7 @@ function updateAppart($bdd, $num_Appartement, $SurfaceH, $SurfaceB, $Capacite, $
               WHERE `numA` = :numA";
     $stmt = $bdd->prepare($query);
     return $stmt->execute([
+        ':numA' => $num_Appartement,
         ':SurfaceH' => $SurfaceH,
         ':SurfaceB' => $SurfaceB,
         ':Capacite' => $Capacite,
@@ -40,6 +41,6 @@ function updateAppart($bdd, $num_Appartement, $SurfaceH, $SurfaceB, $Capacite, $
         ':numE' => $numE,
         ':numT' => $numT,
         ':IBAN' => $IBAN,
-        ':numA' => $num_Appartement
+
     ]);
 }

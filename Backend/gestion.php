@@ -244,6 +244,7 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
 <h4>Modifier un appartement</h4>
 <form method="post">
     <input type="hidden" name="action" value="updateAppart">
+
     <label for="numA">Sélectionnez un appartement :</label>
     <select name="numA" id="numA" required>
         <option value="">-- Choisir --</option>
@@ -251,33 +252,40 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
             <option value="<?= $app['numA'] ?>">Appartement <?= $app['numA'] ?></option>
         <?php endforeach; ?>
     </select><br>
-    <input type="number" name="SurfaceH" placeholder="Surface habitable">
-    <input type="number" name="SurfaceB" placeholder="Surface balcon">
-    <input type="number" name="Capacite" placeholder="Capacité">
-    <input type="number" name="DistancePiste" placeholder="Distance piste"><br>
+
+    <input type="number" name="SurfaceH" placeholder="Surface habitable" required>
+    <input type="number" name="SurfaceB" placeholder="Surface balcon" required>
+    <input type="number" name="Capacite" placeholder="Capacité" required>
+    <input type="number" name="DistancePiste" placeholder="Distance piste" required><br>
+
     <label>Exposition :</label>
-    <select name="numE">
+    <select name="numE" required>
         <option value="">-- Choisir --</option>
         <?php foreach ($expositions as $expo): ?>
             <option value="<?= $expo['numE'] ?>"><?= htmlspecialchars($expo['Description']) ?></option>
         <?php endforeach; ?>
     </select>
-    <label>Type :</label>
-    <select name="numT">
-        <option value="">-- Choisir --</option>
-        <?php foreach ($types as $type): ?>
-            <option value="<?= $type['numT'] ?>"><?= htmlspecialchars($type['desciption']) ?></option>
-        <?php endforeach; ?>
-    </select>
+
+<label>Type :</label> 
+<select name="numT" required>
+    <option value="">-- Choisir --</option>
+    <?php foreach ($types as $type): ?> 
+        <option value="<?= $type['numT'] ?>"><?= htmlspecialchars($type['desciption']) ?></option> 
+    <?php endforeach; ?> 
+</select>
+
     <label>Propriétaire :</label>
-    <select name="IBAN">
+    <select name="IBAN" required>
         <option value="">-- Choisir --</option>
         <?php foreach ($proprietaires as $prop): ?>
             <option value="<?= $prop['IBAN'] ?>"><?= htmlspecialchars($prop['Prenom'] . ' ' . $prop['Nom']) ?></option>
         <?php endforeach; ?>
     </select><br>
+
     <button type="submit">Modifier Appartement</button>
 </form>
+<? php var_dump($_POST); ?>
+
 
 <h4>Supprimer un appartement</h4>
 <form method="post">
