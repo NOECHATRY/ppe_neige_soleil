@@ -212,6 +212,11 @@
             transition: all 0.3s;
             margin-top: 10px;
         }
+        a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
 
         .login-btn:hover {
             background-color: #FFD600;
@@ -230,11 +235,12 @@
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s;
+            text-decoration: none;
         }
 
         .signup-link a:hover {
             color: #FFD600;
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         /* Pied de page */

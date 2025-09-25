@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'accueil</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/neige_soleil.css">
 </head>
 
 <nav>
-    Neige et Soleil
-    <button class="buttonUser">
+    <a href="/ppe_neige_soleil/ppe_neige_soleil/index.php">Neige et Soleil</a>
+    <button class="buttonUser" onclick="window.location.href='inscription.html'">
         <div class="buttonUserIcon">👤</div>
     </button>
 </nav>
@@ -19,9 +19,9 @@
 
     <h3>Sélectionnez ce que vous souhaitez modifier :</h3>
     <div class="conteneur-boutons">
-        <a href=""><button class="buttonEdit">Locataire 🙍</button></a>
-        <a href=""><button class="buttonEdit">Appartement 🏠</button></a>
-        <a href=""><button class="buttonEdit">Contrat 📄</button></a>
+    <a href="../Backend/gestion.php#loc"><button class="buttonEdit">Locataire 🙍</button></a>
+    <a href="../Backend/gestion.php#appartements"><button class="buttonEdit">Appartement 🏠</button></a>
+    <a href="../Backend/gestion.php#contrat"><button class="buttonEdit">Contrat 📄</button></a>
     </div>
 </body>
 <footer>

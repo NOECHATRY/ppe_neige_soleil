@@ -1,0 +1,154 @@
+/* === RESET SIMPLE === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FFFDF7;
+    color: #333;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* === TITRES === */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #5C3F00;
+    font-size: 2.5rem;
+}
+
+h2 {
+    margin: 40px 0 20px;
+    color: #5C3F00;
+    border-left: 6px solid #FFEB3B;
+    padding-left: 12px;
+    font-size: 1.8rem;
+}
+
+h4 {
+    margin: 20px 0 10px;
+    color: #8D6E00;
+    font-size: 1.2rem;
+}
+
+/* === MESSAGES === */
+.msg {
+    background: #FFF9C4;
+    border: 2px solid #FFEB3B;
+    color: #5C3F00;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* === FORMULAIRES === */
+form {
+    background: white;
+    border: 2px solid #FFEB3B;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+form label {
+    display: inline-block;
+    margin: 8px 0 4px;
+    font-weight: bold;
+    color: #5C3F00;
+}
+
+form input,
+form select {
+    width: calc(33% - 10px);
+    min-width: 180px;
+    padding: 10px;
+    margin: 6px 5px;
+    border: 2px solid #FFEB3B;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #FFFDF7;
+    color: #5C3F00;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #FFD600;
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+}
+
+/* === BOUTONS === */
+button {
+    background: #FFEB3B;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 12px;
+    color: #5C3F00;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #FFD600;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+a {
+    color: #5C3F00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #FFD600;
+}
+
+/* === TABLES === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+th {
+    background: #FFF9C4;
+    color: #5C3F00;
+    text-align: left;
+    padding: 14px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:nth-child(even) {
+    background: #FFFDF7;
+}
+
+/* === STATUT APPARTEMENTS === */
+.disponible {
+    color: green;
+    font-weight: bold;
+}
+
+.sous-contrat {
+    color: red;
+    font-weight: bold;
+}

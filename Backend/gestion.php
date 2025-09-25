@@ -36,6 +36,7 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
 <head>
     <meta charset="UTF-8">
     <title>Gestion Neige & Soleil</title>
+    <link rel="stylesheet" href="../Frontend/css/gestion.css">
     <style>
         body { font-family: Arial; margin: 20px; }
         h2 { margin-top: 40px; }
@@ -56,7 +57,7 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
     <!-- === LOCATAIRES === -->
     <h2>Locataires</h2>
 
-    <h4>Ajouter un locataire</h4>
+    <h4 id="loc">Ajouter un locataire</h4>
     <form method="post">
         <input type="hidden" name="action" value="addLocataire">
         <input type="text" name="Nom" placeholder="Nom" required>
@@ -136,7 +137,7 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
         <a href="gestion.php">Annuler</a>
     </form>
 <?php else: ?>
-    <h2>Ajouter un nouveau contrat</h2>
+    <h2 id="contrat">Ajouter un nouveau contrat</h2>
     <form method="post">
         <input type="hidden" name="action" value="addContrat">
         <label>Date du contrat:</label>
@@ -204,7 +205,7 @@ if (isset($_GET['modifier']) && is_numeric($_GET['modifier'])) {
 
 
     <!-- === APPARTEMENTS === -->
-    <h2>Appartements</h2>
+    <h2 id="appartements">Appartements</h2>
 
     <h4>Ajouter un appartement</h4>
     <form method="post">
